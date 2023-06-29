@@ -31,4 +31,11 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'priaid' => [
+        'api_key' => env('API_MEDIC_KEY'),
+        'secret_key' => env('API_MEDIC_SECRET'),
+        'auth_uri' => env('API_MEDIC_AUTH_URI'),
+        'health_service' => env('API_MEDIC_HEALTH_SERVICE_URI')
+    ]
+
 ];
