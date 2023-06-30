@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PriaidApiController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,3 +26,7 @@ Route::post('/app/register', [RegisterController::class, 'register']);
 Route::post('/app/login', [LoginController::class, 'login']);
 
 Route::post('/app/logout', [LoginController::class, 'logout'])->middleware('auth:sanctum');
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/app/symptoms', [PriaidApiController::class, 'getSymptoms']);
+});

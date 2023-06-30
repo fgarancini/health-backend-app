@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Http\Resources\LoginResource;
 use App\Interfaces\LoginServiceInterface;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -22,10 +21,10 @@ class LoginService implements LoginServiceInterface
 
         $token = $user->createToken('authToken')->plainTextToken;
 
-        return new LoginResource((object) [
+        return (object) [
             'token' => $token,
             'user' => $user
-        ]);
+        ];
     }
     function logout($userId)
     {
