@@ -3,7 +3,10 @@
 namespace App\Services;
 
 use App\Interfaces\PriaidApiServiceInterface;
+use Carbon\Carbon;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Http;
+use Log;
 
 class PriaidApiService implements PriaidApiServiceInterface
 {
@@ -26,6 +29,21 @@ class PriaidApiService implements PriaidApiServiceInterface
         ])->get("https://sandbox-healthservice.priaid.ch/symptoms",[
             'token' => $this->token,
             'symptoms' => [],
+            'language' => 'en-gb',
+        ])->json();
+    }
+
+    function getDiagnosis($userId,$symptoms) 
+    {
+        $user = User::find($userId);
+        $yearOfBirth = Carbon::parse($user->birthdate);
+        return Http::withHeaders([
+            'Authorization' => "Bearer " . $this->token
+        ])->get("https://sandbox-healthservice.priaid.ch/diagnosis",[
+            'token' => $this->token,
+            'symptoms' => json_encode($symptoms),
+            'gender' => $user->gender,
+            'year_of_birth' => $yearOfBirth->year,
             'language' => 'en-gb',
         ])->json();
     }

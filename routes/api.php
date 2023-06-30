@@ -29,4 +29,5 @@ Route::post('/app/logout', [LoginController::class, 'logout'])->middleware('auth
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/app/symptoms', [PriaidApiController::class, 'getSymptoms']);
+    Route::post('/app/diagnosis', [PriaidApiController::class, 'getDiagnosis']);
 });
