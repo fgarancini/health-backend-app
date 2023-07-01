@@ -3,10 +3,12 @@
 namespace App\Providers;
 
 use App\Interfaces\ApiMedicAuthInterface;
+use App\Interfaces\DiagnosesHistoryServiceInterface;
 use App\Interfaces\LoginServiceInterface;
 use App\Interfaces\PriaidApiServiceInterface;
 use App\Interfaces\RegisterServiceInterface;
 use App\Services\ApiMedicAuth;
+use App\Services\DiagnosesHistoryService;
 use App\Services\LoginService;
 use App\Services\PriaidApiService;
 use App\Services\RegisterService;
@@ -23,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(LoginServiceInterface::class, LoginService::class);
         $this->app->singleton(ApiMedicAuthInterface::class, ApiMedicAuth::class);
         $this->app->singleton(PriaidApiServiceInterface::class, PriaidApiService::class);
+        $this->app->singleton(DiagnosesHistoryServiceInterface::class, DiagnosesHistoryService::class);
     }
 
     /**

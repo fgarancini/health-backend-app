@@ -6,7 +6,7 @@ use App\Interfaces\PriaidApiServiceInterface;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Http;
-use Log;
+use Illuminate\Support\Facades\Cache;
 
 class PriaidApiService implements PriaidApiServiceInterface
 {
@@ -24,13 +24,21 @@ class PriaidApiService implements PriaidApiServiceInterface
 
     function getSymptoms()
     {
-        return Http::withHeaders([
-            'Authorization' => "Bearer " . $this->token
-        ])->get("https://sandbox-healthservice.priaid.ch/symptoms",[
-            'token' => $this->token,
-            'symptoms' => [],
-            'language' => 'en-gb',
-        ])->json();
+        $cacheKey = 'symptoms';
+        $expirationTimeInSeconds = 3600; 
+    
+        
+        $cachedResponse = Cache::remember($cacheKey, $expirationTimeInSeconds, function () {
+            return Http::withHeaders([
+                'Authorization' => "Bearer " . $this->token
+            ])->get("https://sandbox-healthservice.priaid.ch/symptoms",[
+                'token' => $this->token,
+                'symptoms' => [],
+                'language' => 'en-gb',
+            ])->json();
+        });
+    
+        return $cachedResponse;
     }
 
     function getDiagnosis($userId,$symptoms) 

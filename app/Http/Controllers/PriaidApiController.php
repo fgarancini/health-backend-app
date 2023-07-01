@@ -19,9 +19,10 @@ class PriaidApiController extends Controller
 
     function getSymptoms(): JsonResponse
     {
+        //Preguntar si ya existen los sintomas cacheados
         $symptoms = $this->priaidApiService->getSymptoms();
 
-        return response()->json(['data' => $symptoms]);
+        return response()->json($symptoms,200);
     }
 
     function getDiagnosis(Request $request): JsonResponse
@@ -33,6 +34,6 @@ class PriaidApiController extends Controller
         ]);
         $diagnosis = $this->priaidApiService->getDiagnosis($request->userId, $request->symptoms);
 
-        return response()->json(['data' => $diagnosis]);
+        return response()->json($diagnosis);
     }
 }
