@@ -26,7 +26,7 @@ class LoginController extends Controller
 
         $userData = $this->loginService->login($request->email, $request->password);
 
-        return response()->json(['data' => new LoginResource($userData)], 200);
+        return response()->json(new LoginResource($userData), 200);
     }
 
     function logout(Request $request): JsonResponse
