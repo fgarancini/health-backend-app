@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DiagnosesHistoryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PriaidApiController;
 use App\Http\Controllers\RegisterController;
@@ -30,4 +31,6 @@ Route::post('/app/logout', [LoginController::class, 'logout'])->middleware('auth
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/app/symptoms', [PriaidApiController::class, 'getSymptoms']);
     Route::post('/app/diagnosis', [PriaidApiController::class, 'getDiagnosis']);
+    Route::post('/app/history', [DiagnosesHistoryController::class, 'updateHistory']);
+    Route::get('/app/history/{userId}', [DiagnosesHistoryController::class, 'getHistory']);
 });
