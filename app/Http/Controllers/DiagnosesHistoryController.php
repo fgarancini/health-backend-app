@@ -39,7 +39,7 @@ class DiagnosesHistoryController extends Controller
             'user_id' => ['required', 'exists:users,id'],
         ]);
         $history = $this->diagnosesHistoryService->getHistory($request->user_id);
-        return response()->json();
+        return response()->json($history);
 
     }
 }

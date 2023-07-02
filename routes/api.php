@@ -18,19 +18,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::post('/app/register', [RegisterController::class, 'register']);
 
 Route::post('/app/login', [LoginController::class, 'login']);
-
-Route::post('/app/logout', [LoginController::class, 'logout'])->middleware('auth:sanctum');
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/app/symptoms', [PriaidApiController::class, 'getSymptoms']);
     Route::post('/app/diagnosis', [PriaidApiController::class, 'getDiagnosis']);
     Route::post('/app/history', [DiagnosesHistoryController::class, 'updateHistory']);
     Route::get('/app/history/{userId}', [DiagnosesHistoryController::class, 'getHistory']);
+    Route::post('/app/logout', [LoginController::class, 'logout']);
 });
