@@ -25,11 +25,15 @@ This Laravel project integrates with the Priaid API to provide symptom and diagn
 
 `cd health-backend-app`
 
-3. Start the Docker containers:
+3. Install dependencies
+
+`composer install`
+
+4. Start the Docker containers:
 
 `./vendor/bin/sail up`
 
-4. Run database migrations:
+5. Run database migrations:
 
 `./vendor/bin/sail artisan migrate`
 
